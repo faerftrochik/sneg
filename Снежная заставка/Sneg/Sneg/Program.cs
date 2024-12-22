@@ -23,6 +23,9 @@ public class Snowflake
 }
 
 public class SnowfallScreensaver : Form
+///<summary>
+        /// Создание эффекта снегопада
+        ///</summеry>
 {
     private List<Snowflake> snowflakes;
     private Random random;
@@ -87,6 +90,9 @@ public class SnowfallScreensaver : Form
     }
 
     private void Timer_Tick(object sender, EventArgs e)
+    ///<summary>
+        /// Перемещает снежинки и перерисовывает окно.
+        ///</summеry>
     {
         MoveSnowflakes();
         this.Invalidate();
@@ -116,7 +122,7 @@ public class SnowfallScreensaver : Form
 
     protected override void OnPaint(PaintEventArgs e)
     ///<summary>
-        /// Ресуем фон и снежинки
+        /// Ресуем фон и снежинки (Отрисовку окна)
         ///</summеry>
     {
         Graphics g = e.Graphics;
@@ -140,6 +146,9 @@ public class SnowfallScreensaver : Form
 
     [STAThread]
     public static void Main()
+    ///<summary>
+        /// Точка входа в программу
+        ///</summеry>
     {
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
