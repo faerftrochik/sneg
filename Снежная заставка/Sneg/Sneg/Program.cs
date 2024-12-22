@@ -11,6 +11,9 @@ public class Snowflake
     public int Size { get; set; }
 
     public Snowflake(float x, float y, float speed, int size)
+        ///<summary>
+        /// Переменные
+        ///</summary>
     {
         X = x;
         Y = y;
@@ -27,34 +30,42 @@ public class SnowfallScreensaver : Form
     private Image background;
 
     public SnowfallScreensaver()
+    ///<summary>
+        /// Устанавливаем свойства окна
+        ///</summary>
     {
-        // Устанавливаем свойства окна
         this.FormBorderStyle = FormBorderStyle.None;
         this.WindowState = FormWindowState.Maximized;
         this.BackColor = Color.Black;
         this.DoubleBuffered = true;
 
-        // Загрузка фонового изображения
-        background = Image.FromFile("Shegpad.jpg"); // Укажите путь к фоновому изображению
+        background = Image.FromFile("Shegpad.jpg");
+        ///<summary>
+        /// Загрузка фонового изображения
+        ///</summary>
 
-        // Инициализация списка снежинок
+        /// Инициализация списка снежинок
         snowflakes = new List<Snowflake>();
         random = new Random();
 
-        // Создаем начальные снежинки
-        for (int i = 0; i < 1000; i++) // Количество снежинок
+        for (int i = 0; i < 1000; i++)
+        ///<summary>
+        /// Создаем начальные снежинки
+        ///</summary>
         {
             AddSnowflake();
         }
 
-        // Настройка таймера
+        /// Настройка таймера
         timer = new Timer();
         timer.Interval = 16; // ~60 FPS
         timer.Tick += Timer_Tick;
         timer.Start();
 
-        // Обработка клавиш
         this.KeyDown += (s, e) =>
+        ///<summary>
+        /// Обработка клавиш
+        ///</summary>
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -64,6 +75,9 @@ public class SnowfallScreensaver : Form
     }
 
     private void AddSnowflake()
+    ///<summary>
+        /// Начальный спавн снежинок
+        ///</summary>
     {
         float x = random.Next(0, 1600);
         float y = random.Next(-this.ClientSize.Height, 0);
@@ -79,14 +93,19 @@ public class SnowfallScreensaver : Form
     }
 
     private void MoveSnowflakes()
+    ///<summary>
+        /// Спавн снежинок когда они зашли за границу снизу
+        ///</summary>
     {
         foreach (var snowflake in snowflakes)
         {
             snowflake.Y += snowflake.Speed;
 
             if (snowflake.Y > this.ClientSize.Height)
+            ///<summary>
+        /// Сбрасываем снежинку наверх
+        ///</summary>
             {
-                // Сбрасываем снежинку наверх
                 snowflake.X = random.Next(0, this.ClientSize.Width);
                 snowflake.Y = random.Next(-this.ClientSize.Height, 0);
                 snowflake.Speed = (float)random.NextDouble() * 2 + 1;
@@ -96,14 +115,22 @@ public class SnowfallScreensaver : Form
     }
 
     protected override void OnPaint(PaintEventArgs e)
+    ///<summary>
+        /// Ресуем фон и снежинки
+        ///</summary>
     {
         Graphics g = e.Graphics;
 
         // Рисуем фон
         g.DrawImage(background, 0, 0, this.ClientSize.Width, this.ClientSize.Height);
+        ///<summary>
+        /// Ресуем фон
+        ///</summary>
 
-        // Рисуем снежинки
         foreach (var snowflake in snowflakes)
+        ///<summary>
+        /// Ресуем снежинки
+        ///</summary>
         {
             using (Brush brush = new SolidBrush(Color.White))
             {
